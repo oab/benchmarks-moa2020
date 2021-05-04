@@ -4,7 +4,7 @@ CFLAGSGCC=-Wall -march=native -mtune=native -std=c18 -I.
 SIZE=128
 PAD=2
 
-all: nopad padk padj
+all: nopad padk padj allpad
 
 benchmark: nopad padk padj
 
@@ -17,6 +17,9 @@ padk:
 padj:
 	$(GCC) padj.c $(CFLAGSGCC) -O3  -lm -D SIZE=$(SIZE) -D PAD=$(PAD) -o $@	
 
+allpad:
+	$(GCC) allpad.c $(CFLAGSGCC) -O3  -lm -D SIZE=$(SIZE) -o $@	
+
 
 run: benchmark
 	./nopad
@@ -25,6 +28,6 @@ run: benchmark
 
 clean:
 	rm -f *.o \
-	nopad padk padj \
+	nopad padk padj allpad \
 
 .PHONY: clean all benchmark run
